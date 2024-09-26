@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Filter from "./Filter";
-import { pingInfo, seasonInfo } from "./contant";
+import { pingInfo, seasonInfo, Ping } from "./contant";
 import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 
@@ -18,6 +19,26 @@ const Container = styled.div`
 
 export default function Home() {
   const { filter } = useFilterStore();
+  const [filteredPingInfo, setFilteredPingInfo] =
+    useState<typeof pingInfo>(pingInfo);
+
+  useEffect(() => {
+    setFilteredPingInfo(() => {
+      const newPingInfo: typeof pingInfo = {};
+
+      Object.keys(pingInfo).map((season) => {
+        newPingInfo[season] = [];
+
+        pingInfo[season].map((pingItem) => {
+          if (filter[pingItem.type].checked) {
+            newPingInfo[season].push(pingItem);
+          }
+        });
+      });
+
+      return newPingInfo;
+    });
+  }, [filter]);
 
   return (
     <Container>
@@ -28,15 +49,15 @@ export default function Home() {
         {seasonInfo.map(
           (season) =>
             filter[season.filterKey]?.checked &&
-            pingInfo[season.filterKey] &&
-            pingInfo[season.filterKey]?.length > 0 && (
+            filteredPingInfo[season.filterKey] &&
+            filteredPingInfo[season.filterKey]?.length > 0 && (
               <SeasonFrame
                 key={season.seasonNum}
                 seasonNum={season.seasonNum}
                 color={season.color}
                 name={season.name}
                 filterKey={season.filterKey}
-                pingList={pingInfo[season.filterKey] ?? []}
+                pingList={filteredPingInfo[season.filterKey] ?? []}
               />
             )
         )}
