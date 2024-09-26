@@ -12,41 +12,60 @@ export interface Season {
   filterKey: string;
 }
 
+export const colors: { [key: string]: string } = {
+  first: "#FF69B4",
+  second: "#90E7FE",
+  third: "#E44C59",
+  fourth: "#E1A5E6",
+  fifth: "#666CD7",
+  movieFirst: "#f87171",
+  royal: "#d97706",
+  legend: "#7c3aed",
+  normal: "#16a34a",
+  villain: "#334155",
+};
+
+export const pingTypeInfo: { [key: string]: string } = {
+  royal: "로열",
+  legend: "레전드",
+  villain: "빌런",
+};
+
 export const seasonInfo: Season[] = [
   {
     seasonNum: 1,
     name: "1기(큐브)",
-    color: "#FF69B4",
+    color: colors.first,
     filterKey: "first",
   },
   {
     seasonNum: 2,
     name: "2기(보석)",
-    color: "#90E7FE",
+    color: colors.second,
     filterKey: "second",
   },
   {
     seasonNum: 3,
     name: "3기(열쇠)",
-    color: "#E44C59",
+    color: colors.third,
     filterKey: "third",
   },
   {
     seasonNum: 4,
     name: "4기(디저트)",
-    color: "#E1A5E6",
+    color: colors.fourth,
     filterKey: "fourth",
   },
   {
     seasonNum: 5,
     name: "5기(스타)",
-    color: "#666CD7",
+    color: colors.fifth,
     filterKey: "fifth",
   },
   {
     seasonNum: 6,
     name: "극장판 1기(사랑의 하츄핑)",
-    color: "#f87171",
+    color: colors.movieFirst,
     filterKey: "movieFirst",
   },
 ];

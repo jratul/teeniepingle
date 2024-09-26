@@ -20,8 +20,11 @@ interface Props extends Season {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
   gap: 3px;
+  grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 
 const GridItem = styled.div`
