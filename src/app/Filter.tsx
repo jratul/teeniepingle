@@ -23,7 +23,6 @@ export default function Filter() {
         {open ? <IoIosArrowDown /> : <IoIosArrowUp />}
       </OpenButton>
       <FilterContent open={open} />
-      dfewaf
     </div>
   );
 }

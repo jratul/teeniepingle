@@ -16,29 +16,54 @@ interface FilterState {
 export const useFilterStore = create<FilterState>((set) => ({
   filter: {
     first: {
-      name: "1기",
+      name: "1기(큐브)",
       checked: true,
       color: "#FF69B4",
     },
     second: {
-      name: "2기(반짝반짝)",
+      name: "2기(보석)",
       checked: true,
       color: "#90E7FE",
     },
     third: {
-      name: "3기(알쏭달쏭)",
+      name: "3기(열쇠)",
       checked: true,
       color: "#E44C59",
     },
     fourth: {
-      name: "4기(새콤달콤)",
+      name: "4기(디저트)",
       checked: true,
       color: "#E1A5E6",
     },
     fifth: {
-      name: "5기(슈팅스타)",
+      name: "5기(스타)",
       checked: true,
       color: "#666CD7",
+    },
+    movieFirst: {
+      name: "극장판 1기(사랑의 하츄핑)",
+      checked: true,
+      color: "#f87171",
+    },
+    royal: {
+      name: "로열 티니핑",
+      checked: true,
+      color: "#d97706",
+    },
+    legend: {
+      name: "레전드 티니핑",
+      checked: true,
+      color: "#7c3aed",
+    },
+    normal: {
+      name: "일반 티니핑",
+      checked: true,
+      color: "#16a34a",
+    },
+    villain: {
+      name: "빌런 티니핑",
+      checked: true,
+      color: "#334155",
     },
   },
   setFilter: (filter) => set((state) => ({ filter: filter })),

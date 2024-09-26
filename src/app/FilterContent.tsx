@@ -15,6 +15,19 @@ const Wrapper = styled.div<Props>`
   border-radius: 5px;
 `;
 
+const Button = styled.button`
+  background: #e879f9;
+  padding: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    background: #f0abfc;
+  }
+`;
+
 export default function FilterContent({ open }: Props) {
   const { filter, setFilter } = useFilterStore();
 
@@ -29,8 +42,20 @@ export default function FilterContent({ open }: Props) {
     setFilter(newFilter);
   };
 
+  const handleToggleAll = (checked: boolean) => {
+    const newFilter: Filter = { ...filter };
+
+    for (const key in newFilter) {
+      newFilter[key].checked = checked;
+    }
+
+    setFilter(newFilter);
+  };
+
   return (
     <Wrapper open={open}>
+      <Button onClick={() => handleToggleAll(true)}>모두 체크하기</Button>
+      <Button onClick={() => handleToggleAll(false)}>모두 체크 해제</Button>
       <div>
         {Object.entries(filter).map(([key, filterItem]) => (
           <CheckBox
