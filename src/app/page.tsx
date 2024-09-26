@@ -2,7 +2,7 @@
 
 import styled from "@emotion/styled";
 import Filter from "./Filter";
-import { seasonInfo } from "./contant";
+import { pingInfo, seasonInfo } from "./contant";
 import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 
@@ -22,13 +22,16 @@ export default function Home() {
         <Filter />
         {seasonInfo.map(
           (season) =>
-            filter[season.filterKey]?.checked && (
+            filter[season.filterKey]?.checked &&
+            pingInfo[season.filterKey] &&
+            pingInfo[season.filterKey]?.length > 0 && (
               <SeasonFrame
                 key={season.seasonNum}
                 seasonNum={season.seasonNum}
                 color={season.color}
                 name={season.name}
                 filterKey={season.filterKey}
+                pingList={pingInfo[season.filterKey] ?? []}
               />
             )
         )}
