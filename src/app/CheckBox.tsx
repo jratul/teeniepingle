@@ -9,16 +9,23 @@ interface Props {
 }
 
 const CheckBoxContainer = styled.span<{ color: string }>`
+  float: left;
   display: flex;
   align-items: center;
   color: ${({ color }) => color};
   cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const IconWrapper = styled.span`
   display: flex;
   align-items: center;
-  margin-right: 3px;  /* 아이콘과 텍스트 사이 간격 */
+  margin-right: 3px;
 `;
 
 export default function CheckBox({

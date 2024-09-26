@@ -18,12 +18,11 @@ export default function Filter() {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "5px" }}>
       <OpenButton onClick={handleOpenButton}>
         {open ? <IoIosArrowDown /> : <IoIosArrowUp />}
       </OpenButton>
       <FilterContent open={open} />
-      dfewaf
     </div>
   );
 }

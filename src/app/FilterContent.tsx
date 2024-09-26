@@ -7,15 +7,25 @@ interface Props {
 }
 
 const Wrapper = styled.div<Props>`
-  max-height: ${(props) => (props.open ? "200px" : "0")};
-  transition: max-height 0.4s ease;
+  max-height: ${(props) => (props.open ? "auto" : "0")};
+  padding: ${(props) => (props.open ? "20px" : "0")};
+  transition: max-height 0.4s ease, padding 0.5s ease;
   overflow: hidden;
   background: #f1f5f9;
   border-radius: 5px;
 `;
 
-const Inner = styled.div`
-  padding: 20px;
+const Button = styled.button`
+  background: #e879f9;
+  padding: 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    background: #f0abfc;
+  }
 `;
 
 export default function FilterContent({ open }: Props) {
@@ -26,15 +36,27 @@ export default function FilterContent({ open }: Props) {
       ...filter,
       [key]: {
         ...filter[key],
-        checked: !filter[key].checked, // 체크 상태를 토글
+        checked: !filter[key].checked,
       },
     };
-    setFilter(newFilter); // 함수가 아니라 새로운 객체를 직접 전달
+    setFilter(newFilter);
+  };
+
+  const handleToggleAll = (checked: boolean) => {
+    const newFilter: Filter = { ...filter };
+
+    for (const key in newFilter) {
+      newFilter[key].checked = checked;
+    }
+
+    setFilter(newFilter);
   };
 
   return (
     <Wrapper open={open}>
-      <Inner>
+      <Button onClick={() => handleToggleAll(true)}>모두 체크하기</Button>
+      <Button onClick={() => handleToggleAll(false)}>모두 체크 해제</Button>
+      <div>
         {Object.entries(filter).map(([key, filterItem]) => (
           <CheckBox
             key={key}
@@ -44,7 +66,7 @@ export default function FilterContent({ open }: Props) {
             content={filterItem.name}
           />
         ))}
-      </Inner>
+      </div>
     </Wrapper>
   );
 }

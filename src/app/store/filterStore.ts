@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { colors } from "../contant";
 
 export interface Filter {
   [key: string]: {
@@ -16,29 +17,54 @@ interface FilterState {
 export const useFilterStore = create<FilterState>((set) => ({
   filter: {
     first: {
-      name: "1기",
+      name: "1기(큐브)",
       checked: true,
-      color: "#FF69B4",
+      color: colors.first,
     },
     second: {
-      name: "2기(반짝반짝)",
+      name: "2기(보석)",
       checked: true,
-      color: "#90E7FE",
+      color: colors.second,
     },
     third: {
-      name: "3기(알쏭달쏭)",
+      name: "3기(열쇠)",
       checked: true,
-      color: "#E44C59",
+      color: colors.third,
     },
     fourth: {
-      name: "4기(새콤달콤)",
+      name: "4기(디저트)",
       checked: true,
-      color: "#E1A5E6",
+      color: colors.fourth,
     },
     fifth: {
-      name: "5기(슈팅스타)",
+      name: "5기(스타)",
       checked: true,
-      color: "#666CD7",
+      color: colors.fifth,
+    },
+    movieFirst: {
+      name: "극장판 1기(사랑의 하츄핑)",
+      checked: true,
+      color: colors.movieFirst,
+    },
+    royal: {
+      name: "로열 티니핑",
+      checked: true,
+      color: colors.royal,
+    },
+    legend: {
+      name: "레전드 티니핑",
+      checked: true,
+      color: colors.legend,
+    },
+    normal: {
+      name: "일반 티니핑",
+      checked: true,
+      color: colors.normal,
+    },
+    villain: {
+      name: "빌런 티니핑",
+      checked: true,
+      color: colors.villain,
     },
   },
   setFilter: (filter) => set((state) => ({ filter: filter })),
