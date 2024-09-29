@@ -26,6 +26,7 @@ export const colors: { [key: string]: string } = {
 };
 
 export const pingTypeInfo: { [key: string]: string } = {
+  normal: "일반",
   royal: "로열",
   legend: "레전드",
   villain: "빌런",
@@ -100,7 +101,7 @@ export const pingInfo: { [key: string]: Ping[] } = {
     },
     {
       name: "주네핑",
-      img: "https://15.164.84.103/wp-content/uploads/2023/07/%EC%A3%BC%EB%84%A4%ED%95%91.png",
+      img: "https://soulbrain.biz/wp-content/uploads/2023/07/%EC%A3%BC%EB%84%A4%ED%95%91.png",
       seasonNum: 2,
       type: "normal",
     },

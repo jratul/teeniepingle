@@ -1,5 +1,7 @@
+import { useState } from "react";
 import styled from "@emotion/styled";
-import { colors, Ping, pingTypeInfo } from "./contant";
+import { colors, Ping, pingTypeInfo } from "./contantBase";
+import PingDialog from "./PingDialog";
 
 const Container = styled.div`
   box-sizing: border-box;
@@ -33,8 +35,18 @@ const Badge = styled.span<{ color: string }>`
 `;
 
 export default function PingItem({ name, img, seasonNum, type }: Ping) {
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   return (
-    <Container>
+    <Container onClick={() => setDialogOpen(true)}>
+      {dialogOpen && (
+        <PingDialog
+          name={name}
+          img={img}
+          seasonNum={seasonNum}
+          type={type}
+          handleClose={() => setDialogOpen(false)}
+        />
+      )}
       {type in pingTypeInfo && (
         <Badge color={colors[type]}>{pingTypeInfo[type]}</Badge>
       )}

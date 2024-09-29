@@ -17,7 +17,7 @@ const Wrapper = styled.div<Props>`
 
 const Button = styled.button`
   background: #e879f9;
-  padding: 10px;
+  padding: 8px;
   margin-right: 5px;
   margin-bottom: 5px;
   border-radius: 5px;

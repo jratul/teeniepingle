@@ -14,7 +14,7 @@ const CheckBoxContainer = styled.span<{ color: string }>`
   align-items: center;
   color: ${({ color }) => color};
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
   margin-right: 10px;
 
   &:hover {

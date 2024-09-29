@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Ping, Season } from "./contant";
+import { Ping, Season } from "./contantBase";
 import PingItem from "./PingItem";
 
 const Title = styled.h2<{ color: string }>`
