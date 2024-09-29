@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
-import { Ping } from "./contantBase";
+import { Ping } from "./contant";
 import Portal from "./Portal";
 import { IoClose } from "react-icons/io5";
 import PingTable from "./PingTable";
-import { pingDetailInfo } from "./constantPingDetail";
 
-interface Props extends Ping {
+interface Props {
+  pingInfo: Ping;
   handleClose: () => void;
 }
 
@@ -42,24 +42,12 @@ const CloseButton = styled.button`
   }
 `;
 
-const ImageDiv = styled.div`
-  width: 15rem;
-  margin: auto;
-`;
-
-const Image = styled.img`
-  width: 100%;
-`;
-
-const NameHeading = styled.h2`
-  text-align: center;
-`;
-
 const Line = styled.h3`
   text-align: center;
+  margin-bottom: 1rem;
 `;
 
-export default function PingDialog({ name, img, handleClose }: Props) {
+export default function PingDialog({ pingInfo, handleClose }: Props) {
   const handleCloseButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     handleClose();
@@ -72,17 +60,17 @@ export default function PingDialog({ name, img, handleClose }: Props) {
           <CloseButton onClick={handleCloseButton}>
             <IoClose />
           </CloseButton>
-          <ImageDiv>
-            <Image src={img} alt={name} />
-          </ImageDiv>
-          <NameHeading>{name}</NameHeading>
           <iframe
-            src={pingDetailInfo[name].youtube}
+            src={pingInfo.youtube}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            style={{ width: "100%", minHeight: "400px", margin: "1rem auto" }}
+            style={{
+              width: "100%",
+              minHeight: "400px",
+              margin: "4rem auto 1rem auto",
+            }}
           ></iframe>
-          <Line>{`"${pingDetailInfo[name].line}`}</Line>
-          <PingTable pingDetail={pingDetailInfo[name]} />
+          <Line>{`"${pingInfo.line}"`}</Line>
+          <PingTable pingInfo={pingInfo} />
         </DialogContainer>
       </Dialog>
     </Portal>

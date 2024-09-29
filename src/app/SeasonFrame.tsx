@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Ping, Season } from "./contantBase";
+import { Ping, Season } from "./contant";
 import PingItem from "./PingItem";
 
 const Title = styled.h2<{ color: string }>`
@@ -45,12 +45,7 @@ export default function SeasonFrame({
         <Container>
           {pingList.map((pingItem) => (
             <GridItem key={pingItem.name}>
-              <PingItem
-                name={pingItem.name}
-                img={pingItem.img}
-                seasonNum={pingItem.seasonNum}
-                type={pingItem.type}
-              />
+              <PingItem pingInfo={pingItem} />
             </GridItem>
           ))}
         </Container>

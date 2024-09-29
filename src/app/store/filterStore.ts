@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { colors } from "../contantBase";
+import { colors } from "../contant";
 
 export interface Filter {
   [key: string]: {

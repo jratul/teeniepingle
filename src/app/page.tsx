@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Filter from "./Filter";
-import { pingInfo, seasonInfo, Ping } from "./contantBase";
+import { pingData, seasonData, Ping } from "./contant";
 import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 
@@ -26,16 +26,16 @@ export default function Home() {
   const { filter } = useFilterStore();
   const [searchName, setSearchName] = useState<string>("");
   const [filteredPingInfo, setFilteredPingInfo] =
-    useState<typeof pingInfo>(pingInfo);
+    useState<typeof pingData>(pingData);
 
   useEffect(() => {
     setFilteredPingInfo(() => {
-      const newPingInfo: typeof pingInfo = {};
+      const newPingInfo: typeof pingData = {};
 
-      Object.keys(pingInfo).map((season) => {
+      Object.keys(pingData).map((season) => {
         newPingInfo[season] = [];
 
-        pingInfo[season].map((pingItem) => {
+        pingData[season].map((pingItem) => {
           if (
             filter[pingItem.type].checked &&
             (!searchName || pingItem.name.includes(searchName))
@@ -63,7 +63,7 @@ export default function Home() {
           placeholder="이름으로 찾기"
         />
         <Filter />
-        {seasonInfo.map(
+        {seasonData.map(
           (season) =>
             filter[season.filterKey]?.checked &&
             filteredPingInfo[season.filterKey] &&
