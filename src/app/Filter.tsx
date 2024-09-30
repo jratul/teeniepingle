@@ -7,7 +7,6 @@ import FilterContent from "./FilterContent";
 const OpenButton = styled.button`
   border: 0;
   background: white;
-  cursor: pointer;
 `;
 
 export default function Filter() {
@@ -18,10 +17,11 @@ export default function Filter() {
   };
 
   return (
-    <div style={{ marginBottom: "5px" }}>
+    <div style={{ margin: "5px 0" }}>
       <OpenButton onClick={handleOpenButton}>
         {open ? <IoIosArrowDown /> : <IoIosArrowUp />}
       </OpenButton>
+      필터
       <FilterContent open={open} />
     </div>
   );

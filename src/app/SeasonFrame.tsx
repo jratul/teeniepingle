@@ -45,12 +45,7 @@ export default function SeasonFrame({
         <Container>
           {pingList.map((pingItem) => (
             <GridItem key={pingItem.name}>
-              <PingItem
-                name={pingItem.name}
-                img={pingItem.img}
-                seasonNum={pingItem.seasonNum}
-                type={pingItem.type}
-              />
+              <PingItem pingInfo={pingItem} />
             </GridItem>
           ))}
         </Container>
