@@ -83,7 +83,7 @@ export const pingData: { [key: string]: Ping[] } = {
   first: [
     {
       name: "하츄핑",
-      img: "https://i.namu.wiki/i/1QglAcMMQsCsbEP2u3gIlSOn9eSC5ot0ueDY3y-lyWFmms3djEAHmylc1zY-NKR8mWOwtDC4nGFD5xw9Fp77BEQ6nA-bc-8nKksOg6l1ZOVZdbop0NCeajCpmhVK9HMhOniHwk_UV9KshcOsciNzkg.webp",
+      img: "/images/pings/hachu.webp",
       seasonIdx: 0,
       type: "royal",
       line: "친구들을 되돌릴 수 있는 건, 나뿐이니까, 꾸래!",
