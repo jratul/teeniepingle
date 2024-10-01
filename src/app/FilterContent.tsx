@@ -16,8 +16,12 @@ const Wrapper = styled.div<Props>`
 `;
 
 const FilterGroupTitle = styled.h4`
-  margin: 0.5rem 0;
+  margin: 0 0 0.5rem 0;
   clear: both;
+`;
+
+const FilterGroupBox = styled.div<{ marginBottom: string }>`
+  margin: 0.5rem 0 ${(props) => props.marginBottom} 0;
 `;
 
 export default function FilterContent({ open }: Props) {
@@ -36,32 +40,36 @@ export default function FilterContent({ open }: Props) {
           setChecked={() => toggleAll("season")}
           content="모든 시즌"
         />
-        {Object.entries(filterGroup.season).map(([filterName, filterItem]) => (
-          <CheckBox
-            key={filterName}
-            checked={filterItem.checked}
-            setChecked={() => handleCheckBoxChange("season", filterName)}
-            color={filterItem.color}
-            content={filterItem.name}
-          />
-        ))}
-        <br />
-        <br />
+        <FilterGroupBox marginBottom="5rem">
+          {Object.entries(filterGroup.season).map(
+            ([filterName, filterItem]) => (
+              <CheckBox
+                key={filterName}
+                checked={filterItem.checked}
+                setChecked={() => handleCheckBoxChange("season", filterName)}
+                color={filterItem.color}
+                content={filterItem.name}
+              />
+            )
+          )}
+        </FilterGroupBox>
         <FilterGroupTitle>타입</FilterGroupTitle>
         <CheckBox
           checked={isAllChecked.type}
           setChecked={() => toggleAll("type")}
           content="모든 타입"
         />
-        {Object.entries(filterGroup.type).map(([filterName, filterItem]) => (
-          <CheckBox
-            key={filterName}
-            checked={filterItem.checked}
-            setChecked={() => handleCheckBoxChange("type", filterName)}
-            color={filterItem.color}
-            content={filterItem.name}
-          />
-        ))}
+        <FilterGroupBox marginBottom="0">
+          {Object.entries(filterGroup.type).map(([filterName, filterItem]) => (
+            <CheckBox
+              key={filterName}
+              checked={filterItem.checked}
+              setChecked={() => handleCheckBoxChange("type", filterName)}
+              color={filterItem.color}
+              content={filterItem.name}
+            />
+          ))}
+        </FilterGroupBox>
       </div>
     </Wrapper>
   );

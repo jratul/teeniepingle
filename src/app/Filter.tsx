@@ -9,6 +9,7 @@ const Container = styled.div`
 `;
 
 const OpenButton = styled.button`
+  font-size: 1rem;
   border: 0;
   background: white;
   vertical-align: middle;

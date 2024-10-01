@@ -21,10 +21,14 @@ const Dialog = styled.div`
 `;
 
 const DialogContainer = styled.div`
-  width: 50%;
+  width: 90%;
   margin: auto;
   position: relative;
   padding: 1rem 0;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const CloseButton = styled.button`

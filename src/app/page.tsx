@@ -8,12 +8,11 @@ import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 
 const Container = styled.div`
-  max-width: 768px;
+  width: 90%;
   margin: 0 auto;
-  padding: 10px;
   
   @media (min-width: 768px) {
-    padding: 0;
+    width: 768px;
   }
 `;
 
