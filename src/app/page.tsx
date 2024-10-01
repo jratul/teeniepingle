@@ -9,8 +9,7 @@ import { useFilterStore } from "./store/filterStore";
 
 const Container = styled.div`
   width: 90%;
-  margin: 0 auto;
-  
+  margin: 0 auto;  
   @media (min-width: 768px) {
     width: 768px;
   }
@@ -68,8 +67,8 @@ export default function Home() {
             filteredPingInfo[season.filterKey] &&
             filteredPingInfo[season.filterKey]?.length > 0 && (
               <SeasonFrame
-                key={season.seasonNum}
-                seasonNum={season.seasonNum}
+                key={season.seasonIdx}
+                seasonIdx={season.seasonIdx}
                 color={season.color}
                 name={season.name}
                 filterKey={season.filterKey}

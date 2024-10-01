@@ -27,7 +27,11 @@ const DialogContainer = styled.div`
   padding: 1rem 0;
 
   @media (min-width: 768px) {
-    width: 50%;
+    width: 70%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 40%;
   }
 `;
 
@@ -70,7 +74,7 @@ export default function PingDialog({ pingInfo, handleClose }: Props) {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             style={{
               width: "100%",
-              minHeight: "400px",
+              aspectRatio: "16 / 9",
               margin: "4rem auto 1rem auto",
             }}
           ></iframe>

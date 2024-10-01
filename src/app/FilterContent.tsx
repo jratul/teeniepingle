@@ -22,6 +22,8 @@ const FilterGroupTitle = styled.h4`
 
 const FilterGroupBox = styled.div<{ marginBottom: string }>`
   margin: 0.5rem 0 ${(props) => props.marginBottom} 0;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export default function FilterContent({ open }: Props) {
@@ -35,12 +37,12 @@ export default function FilterContent({ open }: Props) {
     <Wrapper open={open}>
       <div>
         <FilterGroupTitle>시즌</FilterGroupTitle>
-        <CheckBox
-          checked={isAllChecked.season}
-          setChecked={() => toggleAll("season")}
-          content="모든 시즌"
-        />
-        <FilterGroupBox marginBottom="5rem">
+        <FilterGroupBox marginBottom="1rem">
+          <CheckBox
+            checked={isAllChecked.season}
+            setChecked={() => toggleAll("season")}
+            content="모든 시즌"
+          />
           {Object.entries(filterGroup.season).map(
             ([filterName, filterItem]) => (
               <CheckBox
@@ -54,12 +56,12 @@ export default function FilterContent({ open }: Props) {
           )}
         </FilterGroupBox>
         <FilterGroupTitle>타입</FilterGroupTitle>
-        <CheckBox
-          checked={isAllChecked.type}
-          setChecked={() => toggleAll("type")}
-          content="모든 타입"
-        />
         <FilterGroupBox marginBottom="0">
+          <CheckBox
+            checked={isAllChecked.type}
+            setChecked={() => toggleAll("type")}
+            content="모든 타입"
+          />
           {Object.entries(filterGroup.type).map(([filterName, filterItem]) => (
             <CheckBox
               key={filterName}

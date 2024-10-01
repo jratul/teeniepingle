@@ -32,10 +32,9 @@ const GridItem = styled.div`
 `;
 
 export default function SeasonFrame({
-  seasonNum,
+  seasonIdx,
   color,
   name,
-  filterKey,
   pingList,
 }: Props) {
   return (

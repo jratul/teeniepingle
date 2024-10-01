@@ -49,11 +49,6 @@ export const useFilterStore = create<FilterGroupState>((set, get) => ({
         checked: true,
         color: colors.fifth,
       },
-      movieFirst: {
-        name: "극장판 1기(사랑의 하츄핑)",
-        checked: true,
-        color: colors.movieFirst,
-      },
     },
     type: {
       royal: {

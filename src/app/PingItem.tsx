@@ -3,11 +3,16 @@ import styled from "@emotion/styled";
 import { colors, Ping, pingTypeData } from "./contant";
 import PingDialog from "./PingDialog";
 
+interface Props {
+  pingInfo: Ping;
+}
+
 const Container = styled.div`
   box-sizing: border-box;
   text-align: center;
   cursor: pointer;
   position: relative;
+  margin-bottom: 1rem;
   &:hover {
     text-decoration: underline black;
     img {
@@ -16,25 +21,24 @@ const Container = styled.div`
   }
 `;
 
+const ImageBox = styled.div`
+  width: 100%;
+  aspect-ratio: 1 / 1;
+`;
+
 const Image = styled.img`
   width: 100%;
+  height: 100%;
   transition: all 1s ease-in-out;
+  object-fit: contain;
 `;
 
-const NameHeader = styled.h3`
-  color: black;
-  font-weight: 500;
-`;
-
-const Badge = styled.span<{ color: string }>`
+const NameHeader = styled.h3<{ color: string }>`
   color: ${(props) => props.color};
-  position: absolute;
-  left: 10px;
-  top: 0;
-  z-index: 10;
+  font-weight: 600;
 `;
 
-export default function PingItem({ pingInfo }: { pingInfo: Ping }) {
+export default function PingItem({ pingInfo }: Props) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   return (
     <Container onClick={() => setDialogOpen(true)}>
@@ -44,15 +48,10 @@ export default function PingItem({ pingInfo }: { pingInfo: Ping }) {
           handleClose={() => setDialogOpen(false)}
         />
       )}
-      {pingInfo.type !== "normal" && (
-        <Badge color={colors?.[pingInfo.type]}>
-          {pingTypeData[pingInfo.type]}
-        </Badge>
-      )}
-      <div>
-        <Image src={pingInfo.img} alt={pingInfo.name} />
-      </div>
-      <NameHeader>{pingInfo.name}</NameHeader>
+      <ImageBox>
+        <Image src={`/images/pings/${pingInfo.img}.webp`} alt={pingInfo.name} />
+      </ImageBox>
+      <NameHeader color={colors[pingInfo.type]}>{pingInfo.name}</NameHeader>
     </Container>
   );
 }

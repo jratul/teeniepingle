@@ -9,7 +9,6 @@ interface Props {
 }
 
 const CheckBoxContainer = styled.span<{ color: string }>`
-  float: left;
   display: flex;
   align-items: center;
   color: ${({ color }) => color};
