@@ -16,9 +16,11 @@ const TitleCell = styled.td`
 
 const ContentCell = styled.td<{ color?: string }>`
   color: ${(props) => props.color ?? "black"};
+  width: 100%;
   padding: 0.5rem 1rem;
   font-weight: 500;
   background: #f8fafc;
+  white-space: pre-wrap;
 `;
 
 export default function PingTable({ pingInfo }: { pingInfo: Ping }) {

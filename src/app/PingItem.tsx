@@ -44,9 +44,11 @@ export default function PingItem({ pingInfo }: { pingInfo: Ping }) {
           handleClose={() => setDialogOpen(false)}
         />
       )}
-      <Badge color={colors?.[pingInfo.type]}>
-        {pingTypeData[pingInfo.type]}
-      </Badge>
+      {pingInfo.type !== "normal" && (
+        <Badge color={colors?.[pingInfo.type]}>
+          {pingTypeData[pingInfo.type]}
+        </Badge>
+      )}
       <div>
         <Image src={pingInfo.img} alt={pingInfo.name} />
       </div>

@@ -10,12 +10,13 @@ interface Props {
 }
 
 const Dialog = styled.div`
-  width: 100vw;
-  min-height: 100vh;
   z-index: 30;
   position: fixed;
   top: 0;
   left: 0;
+  right:0;
+  bottom:0;
+  overflow-y: auto;
   background: white;
 `;
 
@@ -23,7 +24,7 @@ const DialogContainer = styled.div`
   width: 50%;
   margin: auto;
   position: relative;
-  padding-top: 1rem;
+  padding: 1rem 0;
 `;
 
 const CloseButton = styled.button`
