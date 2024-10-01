@@ -2,7 +2,7 @@
 
 <img src="./public/images/pings/hachu.webp" />
 당신의 티니핑을 찾아보세요!<br/>
-https://tnpg.vercel.appp/
+https://tnpg.vercel.app/
 
 ## Powered by
 
