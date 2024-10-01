@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import { Ping, Season } from "./contant";
 import PingItem from "./PingItem";
 
+interface Props extends Season {
+  pingList: Ping[];
+}
+
 const Title = styled.h2<{ color: string }>`
   color: ${(props) => props.color};
 `;
@@ -13,10 +17,6 @@ const Frame = styled.div<{ color: string }>`
   padding: 10px;
   color: ${(props) => props.color};
 `;
-
-interface Props extends Season {
-  pingList: Ping[];
-}
 
 const Container = styled.div`
   display: grid;
@@ -31,12 +31,7 @@ const GridItem = styled.div`
   grid-column: span 1 / span 1;
 `;
 
-export default function SeasonFrame({
-  seasonIdx,
-  color,
-  name,
-  pingList,
-}: Props) {
+export default function SeasonFrame({ color, name, pingList }: Props) {
   return (
     <div>
       <Title color={color}>{name}</Title>

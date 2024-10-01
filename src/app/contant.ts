@@ -130,7 +130,7 @@ export const pingData: { [key: string]: Ping[] } = {
       like: "화초에 물 주기, 식물 보살피기, 꽃 향기 맡기, 격려하기",
       hate: "꽃을 꺾거나 잔디를 밟는 등의 행동, 부정적인 말과 행동",
       romi: "프린세스 클로버, 프린세스 베로니카",
-      youtube: "https://www.youtube.com/embed/UPFCvEgd-P8",
+      youtube: "https://www.youtube.com/embed/BMGBMX8qhZI",
     },
     {
       name: "라라핑",
@@ -160,7 +160,7 @@ export const pingData: { [key: string]: Ping[] } = {
       like: "비눗방울 놀이, 낙서하기, 다른 티니핑 행동 따라하기",
       hate: "더 놀고 싶은데 자야 하는 것",
       romi: "프린세스 선샤인, 프린세스 베로니카",
-      youtube: "https://www.youtube.com/embed/UPFCvEgd-P8",
+      youtube: "https://www.youtube.com/embed/w_qrXVT4WU4",
     },
     {
       name: "악동핑",

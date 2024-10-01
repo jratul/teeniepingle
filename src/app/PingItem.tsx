@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { colors, Ping, pingTypeData } from "./contant";
+import { colors, Ping } from "./contant";
 import PingDialog from "./PingDialog";
 
 interface Props {
@@ -29,7 +29,7 @@ const ImageBox = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
   object-fit: contain;
 `;
 

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Filter from "./Filter";
-import { pingData, seasonData, Ping } from "./contant";
+import { pingData, seasonData } from "./contant";
 import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 

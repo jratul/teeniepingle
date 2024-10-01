@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import CheckBox from "./CheckBox";
-import { FilterGroup, FilterItem, useFilterStore } from "./store/filterStore";
+import { useFilterStore } from "./store/filterStore";
 
 interface Props {
   open: boolean;
@@ -15,7 +15,7 @@ const Wrapper = styled.div<Props>`
   border-radius: 5px;
 `;
 
-const FilterGroupTitle = styled.h4`
+const FilterGroupTitle = styled.h3`
   margin: 0 0 0.5rem 0;
   clear: both;
 `;
