@@ -10,20 +10,37 @@ interface Props {
 }
 
 const Dialog = styled.div`
-  width: 100vw;
-  min-height: 100vh;
   z-index: 30;
   position: fixed;
   top: 0;
   left: 0;
+  right:0;
+  bottom:0;
+  overflow-y: auto;
   background: white;
 `;
 
 const DialogContainer = styled.div`
-  width: 50%;
+  width: 90%;
   margin: auto;
   position: relative;
-  padding-top: 1rem;
+  padding: 1rem 0;
+
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 70%;
+  }
+
+  @media (min-width: 1280px) {
+    width: 60%;
+  }
+
+  @media (min-width: 1440px) {
+    width: 40%;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -60,16 +77,18 @@ export default function PingDialog({ pingInfo, handleClose }: Props) {
           <CloseButton onClick={handleCloseButton}>
             <IoClose />
           </CloseButton>
-          <iframe
-            src={pingInfo.youtube}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            style={{
-              width: "100%",
-              minHeight: "400px",
-              margin: "4rem auto 1rem auto",
-            }}
-          ></iframe>
-          <Line>{`"${pingInfo.line}"`}</Line>
+          {pingInfo.youtube && (
+            <iframe
+              src={pingInfo.youtube}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              style={{
+                width: "100%",
+                aspectRatio: "16 / 9",
+                margin: "4rem auto 1rem auto",
+              }}
+            ></iframe>
+          )}
+          {pingInfo.line && <Line>{`"${pingInfo.line}"`}</Line>}
           <PingTable pingInfo={pingInfo} />
         </DialogContainer>
       </Dialog>

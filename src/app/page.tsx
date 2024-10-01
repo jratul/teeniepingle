@@ -8,12 +8,10 @@ import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 
 const Container = styled.div`
-  max-width: 768px;
-  margin: 0 auto;
-  padding: 10px;
-  
+  width: 90%;
+  margin: 0 auto;  
   @media (min-width: 768px) {
-    padding: 0;
+    width: 768px;
   }
 `;
 
@@ -23,7 +21,7 @@ const SearchInput = styled.input`
 `;
 
 export default function Home() {
-  const { filter } = useFilterStore();
+  const { filterGroup: filter } = useFilterStore();
   const [searchName, setSearchName] = useState<string>("");
   const [filteredPingInfo, setFilteredPingInfo] =
     useState<typeof pingData>(pingData);
@@ -37,7 +35,7 @@ export default function Home() {
 
         pingData[season].map((pingItem) => {
           if (
-            filter[pingItem.type].checked &&
+            filter.type[pingItem.type].checked &&
             (!searchName || pingItem.name.includes(searchName))
           ) {
             newPingInfo[season].push(pingItem);
@@ -65,12 +63,12 @@ export default function Home() {
         <Filter />
         {seasonData.map(
           (season) =>
-            filter[season.filterKey]?.checked &&
+            filter.season[season.filterKey]?.checked &&
             filteredPingInfo[season.filterKey] &&
             filteredPingInfo[season.filterKey]?.length > 0 && (
               <SeasonFrame
-                key={season.seasonNum}
-                seasonNum={season.seasonNum}
+                key={season.seasonIdx}
+                seasonIdx={season.seasonIdx}
                 color={season.color}
                 name={season.name}
                 filterKey={season.filterKey}
