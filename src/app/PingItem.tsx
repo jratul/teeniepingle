@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { colors, Ping, pingTypeData } from "./contant";
+import { colors, Ping } from "./contant";
 import PingDialog from "./PingDialog";
 
 interface Props {

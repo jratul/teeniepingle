@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import CheckBox from "./CheckBox";
-import { FilterGroup, FilterItem, useFilterStore } from "./store/filterStore";
+import { useFilterStore } from "./store/filterStore";
 
 interface Props {
   open: boolean;
