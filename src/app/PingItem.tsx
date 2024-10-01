@@ -29,7 +29,7 @@ const ImageBox = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
   object-fit: contain;
 `;
 
