@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import CheckBox from "./CheckBox";
-import { Filter, useFilterStore } from "./store/filterStore";
+import { FilterGroup, FilterItem, useFilterStore } from "./store/filterStore";
 
 interface Props {
   open: boolean;
@@ -15,53 +15,49 @@ const Wrapper = styled.div<Props>`
   border-radius: 5px;
 `;
 
-const Button = styled.button`
-  background: #e879f9;
-  padding: 8px;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    background: #f0abfc;
-  }
+const FilterGroupTitle = styled.h4`
+  margin: 0.5rem 0;
+  clear: both;
 `;
 
 export default function FilterContent({ open }: Props) {
-  const { filter, setFilter } = useFilterStore();
+  const { filterGroup, isAllChecked, toggleItem, toggleAll } = useFilterStore();
 
-  const handleCheckBoxChange = (key: string) => {
-    const newFilter: Filter = {
-      ...filter,
-      [key]: {
-        ...filter[key],
-        checked: !filter[key].checked,
-      },
-    };
-    setFilter(newFilter);
-  };
-
-  const handleToggleAll = (checked: boolean) => {
-    const newFilter: Filter = { ...filter };
-
-    for (const key in newFilter) {
-      newFilter[key].checked = checked;
-    }
-
-    setFilter(newFilter);
+  const handleCheckBoxChange = (groupName: string, filterName: string) => {
+    toggleItem(groupName, filterName);
   };
 
   return (
     <Wrapper open={open}>
-      <Button onClick={() => handleToggleAll(true)}>모두 체크하기</Button>
-      <Button onClick={() => handleToggleAll(false)}>모두 체크 해제</Button>
       <div>
-        {Object.entries(filter).map(([key, filterItem]) => (
+        <FilterGroupTitle>시즌</FilterGroupTitle>
+        <CheckBox
+          checked={isAllChecked.season}
+          setChecked={() => toggleAll("season")}
+          content="모든 시즌"
+        />
+        {Object.entries(filterGroup.season).map(([filterName, filterItem]) => (
           <CheckBox
-            key={key}
+            key={filterName}
             checked={filterItem.checked}
-            setChecked={() => handleCheckBoxChange(key)}
+            setChecked={() => handleCheckBoxChange("season", filterName)}
+            color={filterItem.color}
+            content={filterItem.name}
+          />
+        ))}
+        <br />
+        <br />
+        <FilterGroupTitle>타입</FilterGroupTitle>
+        <CheckBox
+          checked={isAllChecked.type}
+          setChecked={() => toggleAll("type")}
+          content="모든 타입"
+        />
+        {Object.entries(filterGroup.type).map(([filterName, filterItem]) => (
+          <CheckBox
+            key={filterName}
+            checked={filterItem.checked}
+            setChecked={() => handleCheckBoxChange("type", filterName)}
             color={filterItem.color}
             content={filterItem.name}
           />

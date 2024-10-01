@@ -4,7 +4,7 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 interface Props {
   checked: boolean;
   setChecked: () => void;
-  color: string;
+  color?: string;
   content: string;
 }
 
@@ -31,7 +31,7 @@ const IconWrapper = styled.span`
 export default function CheckBox({
   checked,
   setChecked,
-  color,
+  color = "black",
   content,
 }: Props) {
   return (

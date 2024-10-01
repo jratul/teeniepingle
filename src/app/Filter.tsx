@@ -4,9 +4,16 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import styled from "@emotion/styled";
 import FilterContent from "./FilterContent";
 
+const Container = styled.div`
+  margin: 5px 0;
+`;
+
 const OpenButton = styled.button`
   border: 0;
   background: white;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
 `;
 
 export default function Filter() {
@@ -17,12 +24,12 @@ export default function Filter() {
   };
 
   return (
-    <div style={{ margin: "5px 0" }}>
+    <Container>
       <OpenButton onClick={handleOpenButton}>
         {open ? <IoIosArrowDown /> : <IoIosArrowUp />}
+        필터
       </OpenButton>
-      필터
       <FilterContent open={open} />
-    </div>
+    </Container>
   );
 }

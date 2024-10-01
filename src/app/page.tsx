@@ -23,7 +23,7 @@ const SearchInput = styled.input`
 `;
 
 export default function Home() {
-  const { filter } = useFilterStore();
+  const { filterGroup: filter } = useFilterStore();
   const [searchName, setSearchName] = useState<string>("");
   const [filteredPingInfo, setFilteredPingInfo] =
     useState<typeof pingData>(pingData);
@@ -37,7 +37,7 @@ export default function Home() {
 
         pingData[season].map((pingItem) => {
           if (
-            filter[pingItem.type].checked &&
+            filter.type[pingItem.type].checked &&
             (!searchName || pingItem.name.includes(searchName))
           ) {
             newPingInfo[season].push(pingItem);
@@ -65,7 +65,7 @@ export default function Home() {
         <Filter />
         {seasonData.map(
           (season) =>
-            filter[season.filterKey]?.checked &&
+            filter.season[season.filterKey]?.checked &&
             filteredPingInfo[season.filterKey] &&
             filteredPingInfo[season.filterKey]?.length > 0 && (
               <SeasonFrame
