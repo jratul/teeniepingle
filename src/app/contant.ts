@@ -863,7 +863,6 @@ export const pingData: { [key: string]: Ping[] } = {
         "<요리의 국자>\n마법을 사용해 요리를 하거나,\n대상이 맛나핑과 함께 요리하게 만들 수 있다.",
       like: "요리하기, 맛있는 음식",
       hate: "맛없는 음식",
-      romi: "프린세스 크리스탈",
       youtube: "https://www.youtube.com/embed/aJVK-tjDiOw",
     },
     {
