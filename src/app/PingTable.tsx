@@ -11,7 +11,7 @@ const TitleCell = styled.td`
   color: white;
   padding: 0.5rem 1.5rem;
   font-weight: 700;
-  min-width: 5rem;
+  min-width: 7rem;
 `;
 
 const ContentCell = styled.td<{ color?: string }>`
