@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Ping } from "./contant";
 import Portal from "./Portal";
@@ -69,6 +70,18 @@ export default function PingDialog({ pingInfo, handleClose }: Props) {
     event.stopPropagation();
     handleClose();
   };
+
+  useEffect(() => {
+    const handleBackButton = (event: PopStateEvent) => {
+      event.preventDefault();
+      handleClose();
+    };
+
+    window.addEventListener("popstate", handleBackButton);
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [handleClose]);
 
   return (
     <Portal>
