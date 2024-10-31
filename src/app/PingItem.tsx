@@ -40,13 +40,20 @@ const NameHeader = styled.h3<{ color: string }>`
 
 export default function PingItem({ pingInfo }: Props) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+    window.history.pushState({}, "");
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   return (
-    <Container onClick={() => setDialogOpen(true)}>
+    <Container onClick={handleDialogOpen}>
       {dialogOpen && (
-        <PingDialog
-          pingInfo={pingInfo}
-          handleClose={() => setDialogOpen(false)}
-        />
+        <PingDialog pingInfo={pingInfo} handleClose={handleDialogClose} />
       )}
       <ImageBox>
         <Image src={`/images/pings/${pingInfo.img}.webp`} alt={pingInfo.name} />
