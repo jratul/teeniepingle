@@ -38,7 +38,7 @@ export default function SeasonFrame({ color, name, pingList }: Props) {
       <Title color={color}>{name}</Title>
       <Frame color={color}>
         <Container>
-          {pingList.map((pingItem, index) => (
+          {pingList.map((pingItem) => (
             <GridItem key={pingItem.name}>
               <motion.div
                 initial={{
