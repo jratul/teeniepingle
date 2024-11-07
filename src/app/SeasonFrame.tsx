@@ -53,6 +53,7 @@ export default function SeasonFrame({ color, name, pingList }: Props) {
                   duration: 0.5,
                   ease: "easeInOut",
                 }}
+                viewport={{ once: true }}
               >
                 <PingItem pingInfo={pingItem} />
               </motion.div>

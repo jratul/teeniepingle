@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import styled from "@emotion/styled";
 import { colors, Ping } from "./contant";
 import PingDialog from "./PingDialog";
@@ -15,7 +16,7 @@ const Container = styled.div`
   margin-bottom: 1rem;
   &:hover {
     text-decoration: underline black;
-    img {
+    Image {
       scale: 1.1;
     }
   }
@@ -26,7 +27,7 @@ const ImageBox = styled.div`
   aspect-ratio: 1 / 1;
 `;
 
-const Image = styled.img`
+const Img = styled(Image)`
   width: 100%;
   height: 100%;
   transition: all 0.5s ease-in-out;
@@ -56,7 +57,13 @@ export default function PingItem({ pingInfo }: Props) {
         <PingDialog pingInfo={pingInfo} handleClose={handleDialogClose} />
       )}
       <ImageBox>
-        <Image src={`/images/pings/${pingInfo.img}.webp`} alt={pingInfo.name} />
+        <Img
+          src={`/images/pings/${pingInfo.img}.webp`}
+          alt={pingInfo.name}
+          width={150}
+          height={150}
+          priority
+        />
       </ImageBox>
       <NameHeader color={colors[pingInfo.type]}>{pingInfo.name}</NameHeader>
     </Container>
