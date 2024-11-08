@@ -14,6 +14,7 @@ img {
 html {
   width: calc(100vw - 8px);
   overflow-x: hidden;
+  letter-spacing: -0.025em;
 }
 
 button {
@@ -35,4 +36,6 @@ input[type="text"] {
   padding: 0.5rem;
   border: 1px solid #db2777;
   border-radius: 3px;
+  letter-spacing: -0.05em;
+  font-size: 16px;
 }

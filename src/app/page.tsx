@@ -6,6 +6,7 @@ import Filter from "./Filter";
 import { pingData, seasonData } from "./contant";
 import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
+import Flex from "./Flex";
 
 const Container = styled.div`
   width: 90%;
@@ -16,8 +17,12 @@ const Container = styled.div`
 `;
 
 const SearchInput = styled.input`
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
+  margin: 10px 0;
+`;
+
+const HighlightSpan = styled.span`
+  color:#fb7185;
+  font-weight: bold;
 `;
 
 export default function Home() {
@@ -49,9 +54,15 @@ export default function Home() {
 
   return (
     <Container>
-      <div>
-        <h1>티니핑글</h1>
-        <p>당신의 티니핑을 찾아보세요</p>
+      <Flex justify="space-between">
+        <Flex direction="column">
+          <h1>
+            <HighlightSpan>티니핑글</HighlightSpan>
+          </h1>
+          <p>
+            당신의 <HighlightSpan>티니핑</HighlightSpan>을 찾아보세요
+          </p>
+        </Flex>
         <SearchInput
           type="text"
           value={searchName}
@@ -60,23 +71,23 @@ export default function Home() {
           }}
           placeholder="이름으로 찾기"
         />
-        <Filter />
-        {seasonData.map(
-          (season) =>
-            filter.season[season.filterKey]?.checked &&
-            filteredPingInfo[season.filterKey] &&
-            filteredPingInfo[season.filterKey]?.length > 0 && (
-              <SeasonFrame
-                key={season.seasonIdx}
-                seasonIdx={season.seasonIdx}
-                color={season.color}
-                name={season.name}
-                filterKey={season.filterKey}
-                pingList={filteredPingInfo[season.filterKey] ?? []}
-              />
-            )
-        )}
-      </div>
+      </Flex>
+      <Filter />
+      {seasonData.map(
+        (season) =>
+          filter.season[season.filterKey]?.checked &&
+          filteredPingInfo[season.filterKey] &&
+          filteredPingInfo[season.filterKey]?.length > 0 && (
+            <SeasonFrame
+              key={season.seasonIdx}
+              seasonIdx={season.seasonIdx}
+              color={season.color}
+              name={season.name}
+              filterKey={season.filterKey}
+              pingList={filteredPingInfo[season.filterKey] ?? []}
+            />
+          )
+      )}
     </Container>
   );
 }

@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable}`}>
-      <body className="font-pretendard">
+    <html lang="ko">
+      <body className={pretendard.className}>
         <div id="portal" />
         {children}
       </body>
