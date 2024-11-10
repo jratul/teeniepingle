@@ -13,8 +13,13 @@ const CheckBoxContainer = styled.span<{ color: string }>`
   align-items: center;
   color: ${({ color }) => color};
   cursor: pointer;
-  font-size: 1.25rem;
+  font-size: 12px;
   margin-right: 10px;
+  margin-bottom: 4px;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 
   &:hover {
     text-decoration: underline;

@@ -13,6 +13,11 @@ const Wrapper = styled.div<Props>`
   overflow: hidden;
   background: #f1f5f9;
   border-radius: 5px;
+  font-size: 12px;
+  
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const FilterGroupTitle = styled.h3`

@@ -24,6 +24,19 @@ const HighlightSpan = styled.span`
   color:#fb7185;
   font-weight: bold;
 `;
+const Title = styled.div`
+  font-size: 16px;
+  @media (min-width:768px) {
+    font-size: 24px;
+  }
+`;
+
+const SubTitle = styled.p`
+  font-size: 10px;
+  @media (min-width:768px) {
+    font-size: 16px;
+  }
+`;
 
 export default function Home() {
   const { filterGroup: filter } = useFilterStore();
@@ -54,14 +67,14 @@ export default function Home() {
 
   return (
     <Container>
-      <Flex justify="space-between">
+      <Flex justify="space-between" align="center">
         <Flex direction="column">
-          <h1>
+          <Title>
             <HighlightSpan>티니핑글</HighlightSpan>
-          </h1>
-          <p>
+          </Title>
+          <SubTitle>
             당신의 <HighlightSpan>티니핑</HighlightSpan>을 찾아보세요
-          </p>
+          </SubTitle>
         </Flex>
         <SearchInput
           type="text"

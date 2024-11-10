@@ -9,12 +9,16 @@ const Container = styled.div`
 `;
 
 const OpenButton = styled.button`
-  font-size: 1.2rem;
+  font-size: 12px;
   border: 0;
   background: white;
   vertical-align: middle;
   display: flex;
   align-items: center;
+
+  @media (min-width:768px) {
+    font-size:16px;
+  }
 `;
 
 export default function Filter() {
