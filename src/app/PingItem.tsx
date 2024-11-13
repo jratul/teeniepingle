@@ -16,7 +16,7 @@ const Container = styled.div`
   margin-bottom: 1rem;
   &:hover {
     text-decoration: underline black;
-    Image {
+    Img {
       scale: 1.1;
     }
   }
