@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import { Ping, Season } from "./contant";
+import { Ping, Season } from "./constant";
 import PingItem from "./PingItem";
 
 interface Props extends Season {

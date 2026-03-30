@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { colors, Ping } from "./contant";
+import { colors, Ping } from "./constant";
 import PingDialog from "./PingDialog";
 
 interface Props {
@@ -62,7 +62,7 @@ export default function PingItem({ pingInfo }: Props) {
           alt={pingInfo.name}
           width={150}
           height={150}
-          priority
+
         />
       </ImageBox>
       <NameHeader color={colors[pingInfo.type]}>{pingInfo.name}</NameHeader>

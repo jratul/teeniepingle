@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { colors, Ping, pingTypeData, seasonData } from "./contant";
+import { colors, Ping, pingTypeData, seasonData, PRIMARY_COLOR } from "./constant";
 
 const Table = styled.table`
   margin: 0.5rem auto;
@@ -7,7 +7,7 @@ const Table = styled.table`
 
 const TitleCell = styled.td`
   text-align: center;
-  background: #f472b6;
+  background: ${PRIMARY_COLOR};
   color: white;
   padding: 0.5rem 1.5rem;
   font-weight: 700;
@@ -26,48 +26,50 @@ const ContentCell = styled.td<{ color?: string }>`
 export default function PingTable({ pingInfo }: { pingInfo: Ping }) {
   return (
     <Table>
-      <tr>
-        <TitleCell>이름</TitleCell>
-        <ContentCell>{pingInfo.name}</ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>시즌</TitleCell>
-        <ContentCell color={seasonData[pingInfo.seasonIdx].color}>
-          {seasonData[pingInfo.seasonIdx].name}
-        </ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>분류</TitleCell>
-        <ContentCell color={colors[pingInfo.type]}>{`${
-          pingTypeData[pingInfo.type]
-        } 티니핑`}</ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>성별</TitleCell>
-        <ContentCell>{pingInfo.gender}</ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>소품</TitleCell>
-        <ContentCell>{pingInfo.item}</ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>마법</TitleCell>
-        <ContentCell>{pingInfo.skill}</ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>좋아하는 것</TitleCell>
-        <ContentCell>{pingInfo.like}</ContentCell>
-      </tr>
-      <tr>
-        <TitleCell>싫어하는 것</TitleCell>
-        <ContentCell>{pingInfo.hate}</ContentCell>
-      </tr>
-      {pingInfo.romi && (
+      <tbody>
         <tr>
-          <TitleCell>로미와 변신</TitleCell>
-          <ContentCell>{pingInfo.romi}</ContentCell>
+          <TitleCell>이름</TitleCell>
+          <ContentCell>{pingInfo.name}</ContentCell>
         </tr>
-      )}
+        <tr>
+          <TitleCell>시즌</TitleCell>
+          <ContentCell color={seasonData[pingInfo.seasonIdx].color}>
+            {seasonData[pingInfo.seasonIdx].name}
+          </ContentCell>
+        </tr>
+        <tr>
+          <TitleCell>분류</TitleCell>
+          <ContentCell color={colors[pingInfo.type]}>{`${
+            pingTypeData[pingInfo.type]
+          } 티니핑`}</ContentCell>
+        </tr>
+        <tr>
+          <TitleCell>성별</TitleCell>
+          <ContentCell>{pingInfo.gender}</ContentCell>
+        </tr>
+        <tr>
+          <TitleCell>소품</TitleCell>
+          <ContentCell>{pingInfo.item}</ContentCell>
+        </tr>
+        <tr>
+          <TitleCell>마법</TitleCell>
+          <ContentCell>{pingInfo.skill}</ContentCell>
+        </tr>
+        <tr>
+          <TitleCell>좋아하는 것</TitleCell>
+          <ContentCell>{pingInfo.like}</ContentCell>
+        </tr>
+        <tr>
+          <TitleCell>싫어하는 것</TitleCell>
+          <ContentCell>{pingInfo.hate}</ContentCell>
+        </tr>
+        {pingInfo.romi && (
+          <tr>
+            <TitleCell>로미와 변신</TitleCell>
+            <ContentCell>{pingInfo.romi}</ContentCell>
+          </tr>
+        )}
+      </tbody>
     </Table>
   );
 }

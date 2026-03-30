@@ -20,6 +20,8 @@ export interface Season {
   filterKey: string;
 }
 
+export const PRIMARY_COLOR = "#f472b6";
+
 export const colors: { [key: string]: string } = {
   first: "#FF69B4",
   second: "#90E7FE",

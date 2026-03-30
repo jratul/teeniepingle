@@ -6,9 +6,13 @@ img {
 }
 
 *,
-*:focus,
 *:hover {
   outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #f472b6;
+  outline-offset: 2px;
 }
 
 html {

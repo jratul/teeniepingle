@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { colors } from "../contant";
+import { colors } from "../constant";
 
 export interface FilterItem {
   name: string;

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import Filter from "./Filter";
-import { pingData, seasonData } from "./contant";
+import { pingData, seasonData } from "./constant";
 import SeasonFrame from "./SeasonFrame";
 import { useFilterStore } from "./store/filterStore";
 import Flex from "./Flex";
@@ -54,7 +54,10 @@ export default function Home() {
         pingData[season].map((pingItem) => {
           if (
             filter.type[pingItem.type].checked &&
-            (!searchName || pingItem.name.includes(searchName))
+            (!searchName ||
+              pingItem.name
+                .toLowerCase()
+                .includes(searchName.toLowerCase()))
           ) {
             newPingInfo[season].push(pingItem);
           }

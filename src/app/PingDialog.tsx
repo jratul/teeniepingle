@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Ping } from "./contant";
+import { Ping } from "./constant";
 import Portal from "./Portal";
 import { IoClose } from "react-icons/io5";
 import PingTable from "./PingTable";
@@ -77,9 +77,17 @@ export default function PingDialog({ pingInfo, handleClose }: Props) {
       handleClose();
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleClose();
+      }
+    };
+
     window.addEventListener("popstate", handleBackButton);
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("popstate", handleBackButton);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleClose]);
 
@@ -94,6 +102,7 @@ export default function PingDialog({ pingInfo, handleClose }: Props) {
             <iframe
               src={pingInfo.youtube}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
               style={{
                 width: "100%",
                 aspectRatio: "16 / 9",
