@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "@emotion/styled";
 import CheckBox from "./CheckBox";
 import { useFilterStore } from "./store/filterStore";

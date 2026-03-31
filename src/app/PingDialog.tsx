@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { Ping } from "./constant";
+import { Ping, PRIMARY_COLOR } from "./constant";
 import Portal from "./Portal";
 import { IoClose } from "react-icons/io5";
 import PingTable from "./PingTable";
@@ -15,8 +17,8 @@ const Dialog = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  right:0;
-  bottom:0;
+  right: 0;
+  bottom: 0;
   overflow-y: auto;
   background: white;
 `;
@@ -47,7 +49,7 @@ const DialogContainer = styled.div`
 const CloseButton = styled.button`
   padding: 0.5rem;
   font-size: 2rem;
-  background: #f472b6;
+  background: ${PRIMARY_COLOR};
   color: white;
   border-radius: 5px;
   position: absolute;
@@ -93,10 +95,10 @@ export default function PingDialog({ pingInfo, handleClose }: Props) {
 
   return (
     <Portal>
-      <Dialog>
+      <Dialog role="dialog" aria-modal="true" aria-label={pingInfo.name}>
         <DialogContainer>
-          <CloseButton onClick={handleCloseButton}>
-            <IoClose />
+          <CloseButton onClick={handleCloseButton} aria-label="닫기">
+            <IoClose aria-hidden="true" />
           </CloseButton>
           {pingInfo.youtube && (
             <iframe

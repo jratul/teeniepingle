@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "@emotion/styled";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
@@ -38,9 +40,23 @@ export default function CheckBox({
   color = "black",
   content,
 }: Props) {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setChecked();
+    }
+  };
+
   return (
-    <CheckBoxContainer color={color} onClick={setChecked}>
-      <IconWrapper>
+    <CheckBoxContainer
+      color={color}
+      onClick={setChecked}
+      onKeyDown={handleKeyDown}
+      role="checkbox"
+      aria-checked={checked}
+      tabIndex={0}
+    >
+      <IconWrapper aria-hidden="true">
         {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </IconWrapper>
       {content}

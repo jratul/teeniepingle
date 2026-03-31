@@ -89,21 +89,23 @@ export default function Home() {
         />
       </Flex>
       <Filter />
-      {seasonData.map(
-        (season) =>
-          filter.season[season.filterKey]?.checked &&
-          filteredPingInfo[season.filterKey] &&
-          filteredPingInfo[season.filterKey]?.length > 0 && (
-            <SeasonFrame
-              key={season.seasonIdx}
-              seasonIdx={season.seasonIdx}
-              color={season.color}
-              name={season.name}
-              filterKey={season.filterKey}
-              pingList={filteredPingInfo[season.filterKey] ?? []}
-            />
-          )
-      )}
+      {seasonData
+        .filter(
+          (season) =>
+            filter.season[season.filterKey]?.checked &&
+            (filteredPingInfo[season.filterKey]?.length ?? 0) > 0
+        )
+        .map((season, index) => (
+          <SeasonFrame
+            key={season.seasonIdx}
+            seasonIdx={season.seasonIdx}
+            color={season.color}
+            name={season.name}
+            filterKey={season.filterKey}
+            pingList={filteredPingInfo[season.filterKey] ?? []}
+            isFirst={index === 0}
+          />
+        ))}
     </Container>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 import styled from "@emotion/styled";
@@ -6,6 +8,7 @@ import PingDialog from "./PingDialog";
 
 interface Props {
   pingInfo: Ping;
+  priority?: boolean;
 }
 
 const Container = styled.div`
@@ -39,7 +42,7 @@ const NameHeader = styled.h3<{ color: string }>`
   font-weight: 600;
 `;
 
-export default function PingItem({ pingInfo }: Props) {
+export default function PingItem({ pingInfo, priority = false }: Props) {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleDialogOpen = () => {
@@ -51,8 +54,20 @@ export default function PingItem({ pingInfo }: Props) {
     setDialogOpen(false);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleDialogOpen();
+    }
+  };
+
   return (
-    <Container onClick={handleDialogOpen}>
+    <Container
+      onClick={handleDialogOpen}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       {dialogOpen && (
         <PingDialog pingInfo={pingInfo} handleClose={handleDialogClose} />
       )}
@@ -62,7 +77,8 @@ export default function PingItem({ pingInfo }: Props) {
           alt={pingInfo.name}
           width={150}
           height={150}
-
+          priority={priority}
+          sizes="(max-width: 768px) 30vw, 150px"
         />
       </ImageBox>
       <NameHeader color={colors[pingInfo.type]}>{pingInfo.name}</NameHeader>
