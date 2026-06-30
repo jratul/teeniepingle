@@ -11,7 +11,7 @@ img {
 }
 
 *:focus-visible {
-  outline: 2px solid #f472b6;
+  outline: 2px solid #ff77ab;
   outline-offset: 2px;
 }
 
@@ -19,6 +19,19 @@ html {
   width: calc(100vw - 8px);
   overflow-x: hidden;
   letter-spacing: -0.025em;
+}
+
+:root {
+  --font-jua: "Jua";
+  --font-noto-sans-kr: "Noto Sans KR";
+}
+
+body {
+  margin: 0;
+  background: #fff5fa;
+  color: #5a4a52;
+  font-family: var(--font-noto-sans-kr), sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 button {
@@ -36,14 +49,47 @@ p {
   margin: 0;
 }
 
-input[type="text"] {
-  padding: 0.5rem;
-  border: 1px solid #db2777;
-  border-radius: 3px;
-  letter-spacing: -0.05em;
-  font-size: 10px;
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
 
-  @media (min-width: 768px) {
-    font-size: 16px;
+::-webkit-scrollbar-thumb {
+  background: #ffc9de;
+  border-radius: 99px;
+  border: 3px solid #fff5fa;
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
   }
 }

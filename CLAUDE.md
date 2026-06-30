@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Teeniepingle (티니핑글) — a single-page Next.js app for browsing/searching/filtering "티니핑" (Tinyping) characters by season and type. Deployed at https://tnpg.vercel.app/. No backend/API routes; everything is static data rendered client-side.
+티니핑 도감 — a single-page Next.js app for browsing/searching/filtering "티니핑" (Tinyping) characters by season, type, and color. Deployed at https://tnpg.vercel.app/. No backend/API routes; everything is static data rendered client-side.
 
 ## Commands
 
@@ -19,37 +19,71 @@ There is no test runner configured in this repo (no Jest/Vitest/Playwright).
 
 ## Architecture
 
-This is a Next.js 14 App Router project, but only `src/app/page.tsx` is used as an actual route — there are no other routes or API handlers. All components live flat in `src/app/` (no `components/` subfolder).
+This is a Next.js 14 App Router project with a single route (`src/app/page.tsx`). All components live flat in `src/app/` with `hooks/` and `utils/` subdirectories for logic separation.
 
-**Data layer (`src/app/constant.ts`)**
-A single large static data file is the source of truth for all content:
-- `pingData: { [seasonFilterKey]: Ping[] }` — every character, grouped by season key (`first`/`second`/`third`/`fourth`/`fifth`)
-- `seasonData: Season[]` — season metadata (index, display name, color, filter key)
-- `colors` / `pingTypeData` — lookup maps for type→color and type→Korean label (`royal`/`legend`/`normal`/`villain`)
-- `PRIMARY_COLOR` — the single brand pink reused across components (e.g. `error.tsx`)
-- Each `Ping.img` field maps to an image file at `public/images/pings/{img}.webp`. Adding a new character requires the matching webp to already exist in `public/images/pings/`, otherwise the image renders broken — there is no fallback image.
+### Data layer (`src/app/constant.ts`)
 
-**State**
-- `src/app/store/filterStore.ts` (Zustand) holds the season/type checkbox filter state (`filterGroup`) and per-group "select all" state (`isAllChecked`). `toggleItem`/`toggleAll` mutate filter selections.
-- `page.tsx` owns local component state for the search text box and the derived `filteredPingInfo`, recomputed in a `useEffect` whenever `filterGroup` or `searchName` changes (filters `pingData` by checked type + case-insensitive name substring match).
+The single static data file is the source of truth for all content:
 
-**Component flow**
-`page.tsx` → `Filter` (collapsible toggle wrapping `FilterContent`, which renders `CheckBox` items bound to the Zustand store) and one `SeasonFrame` per season with results → `SeasonFrame` renders a grid of `PingItem` (image + name) → clicking a `PingItem` opens `PingDialog` (rendered through `Portal` into the `#portal` div defined in `layout.tsx`) showing a YouTube embed, character line, and `PingTable` (full character detail table).
+- `pingData: { [filterKey: string]: Ping[] }` — all 132 characters grouped by season key (`first`/`second`/`third`/`fourth`/`fifth`). `Ping.img` maps to `public/images/pings/{img}.webp`. Adding a character requires the matching webp to already exist — there is no fallback image.
+- `seasonData: Season[]` — 5 entries (index 0–4), one per season. Each has `seasonIdx` (0–4), `short` (e.g. "1기"), `sub` (e.g. "큐브"), `emoji`, `badgeBg`/`badgeFg` (badge palette), `filterKey`. **`Ping.seasonIdx` is a zero-based index directly into this array (`seasonData[ping.seasonIdx]`).**
+- `typeData: { [key: string]: TypeMeta }` — type metadata for `royal`/`legend`/`normal`/`villain`, each with `label`, `emoji`, `fg` (text color), `bg` (badge bg), `tileBg` (card image tile background).
+- `colorBucketData: { [key in ColorBucket]: ColorBucketMeta }` — six color-discovery swatches (pink/yellow/green/blue/purple/white) with `label` and `swatch` hex.
+- `PRIMARY_COLOR` — brand pink `#ff77ab`, reused in `error.tsx`.
 
-**LCP / above-the-fold image priority**
-`page.tsx` passes `isFirst` only to the first rendered `SeasonFrame`. Inside `SeasonFrame`, the first 5 `PingItem`s of that first season render with `priority` (eager-loaded, no fade-in) while every other item lazy-loads and fades in via `framer-motion`'s `whileInView`. Keep this pattern when reordering or adding seasons — don't mark more than one season's items as `priority`.
+### Color buckets (`src/app/colorBuckets.ts`)
 
-**Accessibility**
-Click-only interactive elements are deliberately given keyboard semantics: `PingItem`'s card has `role="button"` + `tabIndex={0}` + Enter/Space handling, `PingDialog` has `role="dialog"` + `aria-modal` + `aria-label`, and `CheckBox` has `role="checkbox"` + `aria-checked`. Preserve these when touching those components.
+Pre-computed at build time (Node + ffmpeg, not client-side). Each character's dominant color is sampled from its local webp image (26×26 downscale, skip near-white/near-black/transparent pixels, average RGB → HSL bucket). The mapping `{ [img: string]: ColorBucket }` is baked into this file. To regenerate after adding characters, run the color computation script in `.ref/design_handoff_teenieping_dex`.
 
-**Styling**
-Uses `@emotion/styled` (not Tailwind, not CSS Modules) throughout — all styled components are defined inline at the top of each file.
+### State & business logic
 
-**Error handling**
-`src/app/error.tsx` is a Next.js App Router error boundary (client component) shown on uncaught render errors, with a "다시 시도" button calling `reset()`.
+- `src/app/hooks/usePingDex.ts` — all filter/sort/group state and derived data. Owns: `q` (search), `season`, `type`, `color`, `sort` (season|name), `detail` (selected ping for modal), `todays` (random pick modal). Derives `groups: PingGroup[]` (filtered+grouped), `resultCount`, `showJump`. Opening detail clears todays and vice-versa. **No Zustand; plain `useState` + `useMemo`.**
+- `src/app/utils/chosung.ts` — Korean initial-consonant extraction for 가나다 grouping. Exports `CHO` array and `chosung(str)` function.
 
-**Fonts**
-Pretendard variable font is self-hosted via `next/font/local` in `layout.tsx` (`display: "optional"` to fully avoid layout shift, no Google Fonts CDN).
+### Component flow
 
-**Path alias**
-`@/*` → `./src/*` (defined in `tsconfig.json`), though most intra-`app` imports currently use relative paths.
+`page.tsx` (state assembly) → `Header` (title + search bar + 🎀 random button) + `FilterPanel` (season/type/color/sort chips) + `JumpBar` (가나다 jump nav, only when sort=name) + `ResultGroup`s (group header + grid of `PingCard`) + `EmptyState` + `DetailModal` (Portal) + `TodaysModal` (Portal).
+
+- **`PingCard`** — card with image tile (type-color background), Jua name, season/type badges. Hover lifts with shadow.
+- **`ResultGroup`** — renders one group's header + responsive grid. First 5 cards of the first group use `priority` (LCP). All other cards use `framer-motion` `whileInView` fade-in.
+- **`DetailModal`** — full character detail: image, name, season+type badges, 대사 (italic), YouTube embed (if any), and info rows (성별/소품/마법/좋아하는 것/싫어하는 것/로미 변신). Closes on Esc, backdrop click, or browser back.
+- **`TodaysModal`** — random pick with floating image animation (`floatY`), 다시 뽑기 + 자세히 buttons.
+- **`Portal`** — renders children into `#portal` div defined in `layout.tsx`.
+
+### LCP / above-the-fold image priority
+
+`page.tsx` passes `isFirstGroup` only to the first rendered `ResultGroup`. Inside `ResultGroup`, the first 5 `PingCard`s render with `priority` (eager-loaded, no animation) while every other card lazy-loads and fades in via `framer-motion`'s `whileInView`. Keep this pattern when reordering or adding seasons.
+
+### Interactions
+
+- **Search:** case-sensitive substring match on `p.name.includes(q.trim())`. Clear button appears when `q !== ""`.
+- **Filters (AND):** season + type + color + search all combine. Each has an "all" reset chip.
+- **Sort:** `시즌순` → S1..S5 fixed order. `가나다순` → `localeCompare(b,'ko')`, grouped by 초성.
+- **가나다 jump:** clicking a consonant chip computes `el.getBoundingClientRect().top + window.scrollY - 184` and calls `window.scrollTo({top, behavior:'smooth'})`. Uses `data-anchor` attribute on group headers. Does **not** use `scrollIntoView`.
+- **Color discovery:** no runtime canvas/proxy computation. Buckets are pre-computed in `colorBuckets.ts`.
+
+### Accessibility
+
+`PingCard` is a `<button>` (native keyboard access). `DetailModal` and `TodaysModal` have `role="dialog"` + `aria-modal="true"` + `aria-label`. Color dot buttons have `aria-pressed` + `aria-label`. Close buttons have `aria-label="닫기"`. FilterPanel chips are `<button>` elements.
+
+### Styling
+
+Uses `@emotion/styled` throughout — styled components defined inline at the top of each file. CSS keyframes (`wiggle`, `popIn`, `floatY`) are defined globally in `globals.css`. Font CSS variables (`--font-jua`, `--font-noto-sans-kr`) are set in `globals.css :root` and referenced in styled components as `var(--font-jua)`. Fonts (Jua + Noto Sans KR) load non-blocking via `<Script strategy="afterInteractive">` in `layout.tsx`.
+
+### Design tokens
+
+- Page background: `#fff5fa`; primary pink: `#ff77ab`; card surface: `#fff`
+- Card shadow: `0 4px 14px rgba(255,150,190,.14)`; hover: `0 12px 24px rgba(255,150,190,.3)`
+- Radius: cards `22px`, inner tile `18px`, filter panel `24px`, modals `30–32px`, chips `999px`
+
+### Error handling
+
+`src/app/error.tsx` is the Next.js App Router error boundary (client component) shown on uncaught render errors, with a "다시 시도" button calling `reset()`. Uses `PRIMARY_COLOR`.
+
+### Fonts
+
+Jua (display/headings) + Noto Sans KR (body/UI) loaded via `<Script strategy="afterInteractive">` in `layout.tsx` — no render-blocking Google Fonts CDN link in `<head>`. CSS custom properties (`--font-jua`, `--font-noto-sans-kr`) defined in `:root` in `globals.css` allow all styled components to reference them without `next/font` coupling.
+
+### Path alias
+
+`@/*` → `./src/*` (defined in `tsconfig.json`), though most intra-`app` imports use relative paths.

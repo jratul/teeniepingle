@@ -1,111 +1,107 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
 import styled from "@emotion/styled";
-import Filter from "./Filter";
-import { pingData, seasonData } from "./constant";
-import SeasonFrame from "./SeasonFrame";
-import { useFilterStore } from "./store/filterStore";
-import Flex from "./Flex";
+import { usePingDex } from "./hooks/usePingDex";
+import Header from "./Header";
+import FilterPanel from "./FilterPanel";
+import JumpBar from "./JumpBar";
+import ResultGroup from "./ResultGroup";
+import EmptyState from "./EmptyState";
+import DetailModal from "./DetailModal";
+import TodaysModal from "./TodaysModal";
 
-const Container = styled.div`
-  width: 90%;
-  margin: 0 auto;  
-  @media (min-width: 768px) {
-    width: 768px;
-  }
+const PageWrap = styled.div`
+  min-height: 100vh;
 `;
 
-const SearchInput = styled.input`
-  margin: 10px 0;
-`;
-
-const HighlightSpan = styled.span`
-  color:#fb7185;
-  font-weight: bold;
-`;
-const Title = styled.div`
-  font-size: 16px;
-  @media (min-width:768px) {
-    font-size: 24px;
-  }
-`;
-
-const SubTitle = styled.p`
-  font-size: 10px;
-  @media (min-width:768px) {
-    font-size: 16px;
-  }
+const Content = styled.div`
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4px 16px 60px;
 `;
 
 export default function Home() {
-  const { filterGroup: filter } = useFilterStore();
-  const [searchName, setSearchName] = useState<string>("");
-  const [filteredPingInfo, setFilteredPingInfo] =
-    useState<typeof pingData>(pingData);
+  const {
+    q,
+    setQ,
+    season,
+    setSeason,
+    type,
+    setType,
+    color,
+    setColor,
+    sort,
+    setSort,
+    groups,
+    resultCount,
+    showJump,
+    detail,
+    todays,
+    openDetail,
+    closeDetail,
+    openRandom,
+    closeTodays,
+    openDetailFromTodays,
+    resetAll,
+  } = usePingDex();
 
-  useEffect(() => {
-    setFilteredPingInfo(() => {
-      const newPingInfo: typeof pingData = {};
-
-      Object.keys(pingData).map((season) => {
-        newPingInfo[season] = [];
-
-        pingData[season].map((pingItem) => {
-          if (
-            filter.type[pingItem.type].checked &&
-            (!searchName ||
-              pingItem.name
-                .toLowerCase()
-                .includes(searchName.toLowerCase()))
-          ) {
-            newPingInfo[season].push(pingItem);
-          }
-        });
-      });
-
-      return newPingInfo;
-    });
-  }, [filter, searchName]);
+  const handleJump = useCallback((anchor: string) => {
+    const el = document.querySelector(`[data-anchor="${anchor}"]`);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 184;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  }, []);
 
   return (
-    <Container>
-      <Flex justify="space-between" align="center">
-        <Flex direction="column">
-          <Title>
-            <HighlightSpan>티니핑글</HighlightSpan>
-          </Title>
-          <SubTitle>
-            당신의 <HighlightSpan>티니핑</HighlightSpan>을 찾아보세요
-          </SubTitle>
-        </Flex>
-        <SearchInput
-          type="text"
-          value={searchName}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchName(event.target.value);
-          }}
-          placeholder="이름으로 찾기"
+    <PageWrap>
+      <Header
+        q={q}
+        onSearch={setQ}
+        onClearSearch={() => setQ("")}
+        onOpenRandom={openRandom}
+      />
+      <Content>
+        <FilterPanel
+          season={season}
+          type={type}
+          color={color}
+          sort={sort}
+          resultCount={resultCount}
+          onSeasonChange={setSeason}
+          onTypeChange={setType}
+          onColorChange={setColor}
+          onSortChange={setSort}
         />
-      </Flex>
-      <Filter />
-      {seasonData
-        .filter(
-          (season) =>
-            filter.season[season.filterKey]?.checked &&
-            (filteredPingInfo[season.filterKey]?.length ?? 0) > 0
-        )
-        .map((season, index) => (
-          <SeasonFrame
-            key={season.seasonIdx}
-            seasonIdx={season.seasonIdx}
-            color={season.color}
-            name={season.name}
-            filterKey={season.filterKey}
-            pingList={filteredPingInfo[season.filterKey] ?? []}
-            isFirst={index === 0}
+        {showJump && (
+          <JumpBar
+            anchors={groups.map((g) => g.anchor)}
+            onJump={handleJump}
           />
-        ))}
-    </Container>
+        )}
+        {groups.length > 0 ? (
+          groups.map((group, index) => (
+            <ResultGroup
+              key={group.anchor}
+              group={group}
+              isFirstGroup={index === 0}
+              onOpenDetail={openDetail}
+            />
+          ))
+        ) : (
+          <EmptyState onReset={resetAll} />
+        )}
+      </Content>
+      {detail && <DetailModal ping={detail} onClose={closeDetail} />}
+      {todays && (
+        <TodaysModal
+          ping={todays}
+          onClose={closeTodays}
+          onReroll={openRandom}
+          onOpenDetail={openDetailFromTodays}
+        />
+      )}
+    </PageWrap>
   );
 }

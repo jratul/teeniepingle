@@ -15,61 +15,121 @@ export interface Ping {
 
 export interface Season {
   seasonIdx: number;
-  name: string;
-  color: string;
+  short: string;
+  sub: string;
+  emoji: string;
+  badgeBg: string;
+  badgeFg: string;
   filterKey: string;
 }
 
-export const PRIMARY_COLOR = "#f472b6";
+export interface TypeMeta {
+  label: string;
+  emoji: string;
+  fg: string;
+  bg: string;
+  tileBg: string;
+}
 
-export const colors: { [key: string]: string } = {
-  first: "#FF69B4",
-  second: "#90E7FE",
-  third: "#E44C59",
-  fourth: "#E1A5E6",
-  fifth: "#666CD7",
-  royal: "#fb923c",
-  legend: "#7c3aed",
-  normal: "#16a34a",
-  villain: "#334155",
+export type ColorBucket =
+  | "pink"
+  | "yellow"
+  | "green"
+  | "blue"
+  | "purple"
+  | "white";
+
+export interface ColorBucketMeta {
+  label: string;
+  swatch: string;
+}
+
+export const PRIMARY_COLOR = "#ff77ab";
+
+export const typeData: { [key: string]: TypeMeta } = {
+  royal: {
+    label: "로열",
+    emoji: "👑",
+    fg: "#e8a93a",
+    bg: "#fff1cf",
+    tileBg: "#fff3d6",
+  },
+  legend: {
+    label: "레전드",
+    emoji: "🌈",
+    fg: "#7d5bd6",
+    bg: "#ece4ff",
+    tileBg: "#efe8ff",
+  },
+  normal: {
+    label: "일반",
+    emoji: "🩷",
+    fg: "#e87aa3",
+    bg: "#ffe6f0",
+    tileBg: "#ffe8f1",
+  },
+  villain: {
+    label: "빌런",
+    emoji: "😈",
+    fg: "#6b6f86",
+    bg: "#e7e9f2",
+    tileBg: "#eceef6",
+  },
 };
 
-export const pingTypeData: { [key: string]: string } = {
-  normal: "일반",
-  royal: "로열",
-  legend: "레전드",
-  villain: "빌런",
+export const colorBucketData: { [key in ColorBucket]: ColorBucketMeta } = {
+  pink: { label: "핑크", swatch: "#ff8fb8" },
+  yellow: { label: "노랑", swatch: "#ffd66b" },
+  green: { label: "초록", swatch: "#9fe6c0" },
+  blue: { label: "파랑", swatch: "#8fc1ff" },
+  purple: { label: "보라", swatch: "#c5a3ff" },
+  white: { label: "흰·파스텔", swatch: "#fbeef5" },
 };
 
 export const seasonData: Season[] = [
   {
-    seasonIdx: 1,
-    name: "1기(큐브)",
-    color: colors.first,
+    seasonIdx: 0,
+    short: "1기",
+    sub: "큐브",
+    emoji: "🧊",
+    badgeBg: "#ffe3ef",
+    badgeFg: "#d56a92",
     filterKey: "first",
   },
   {
-    seasonIdx: 2,
-    name: "2기(보석)",
-    color: colors.second,
+    seasonIdx: 1,
+    short: "2기",
+    sub: "보석",
+    emoji: "💎",
+    badgeBg: "#e2eeff",
+    badgeFg: "#5f86c8",
     filterKey: "second",
   },
   {
-    seasonIdx: 3,
-    name: "3기(열쇠)",
-    color: colors.third,
+    seasonIdx: 2,
+    short: "3기",
+    sub: "열쇠",
+    emoji: "🗝️",
+    badgeBg: "#fff0cf",
+    badgeFg: "#bd9234",
     filterKey: "third",
   },
   {
-    seasonIdx: 4,
-    name: "4기(디저트)",
-    color: colors.fourth,
+    seasonIdx: 3,
+    short: "4기",
+    sub: "디저트",
+    emoji: "🍰",
+    badgeBg: "#ddf3e8",
+    badgeFg: "#3f9c6d",
     filterKey: "fourth",
   },
   {
-    seasonIdx: 5,
-    name: "5기(스타)",
-    color: colors.fifth,
+    seasonIdx: 4,
+    short: "5기",
+    sub: "스타",
+    emoji: "⭐",
+    badgeBg: "#ece2ff",
+    badgeFg: "#7d5bd6",
     filterKey: "fifth",
   },
 ];
