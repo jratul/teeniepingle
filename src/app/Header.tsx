@@ -134,7 +134,7 @@ export default function Header({
       <Inner>
         <TopRow>
           <TitleArea>
-            <WiggleEmoji aria-hidden="true">🩷</WiggleEmoji>
+            <WiggleEmoji aria-hidden="true">💖</WiggleEmoji>
             <div>
               <Title>티니핑 도감</Title>
               <Subtitle>당신의 티니핑을 찾아보세요</Subtitle>

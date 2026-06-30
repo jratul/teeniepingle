@@ -63,7 +63,7 @@ export const typeData: { [key: string]: TypeMeta } = {
   },
   normal: {
     label: "일반",
-    emoji: "🩷",
+    emoji: "💖",
     fg: "#e87aa3",
     bg: "#ffe6f0",
     tileBg: "#ffe8f1",

@@ -48,7 +48,7 @@ interface Props {
 export default function EmptyState({ onReset }: Props) {
   return (
     <Wrap>
-      <Emoji>🔍🩷</Emoji>
+      <Emoji>🔍💖</Emoji>
       <Title>앗, 찾는 티니핑이 없어요</Title>
       <Hint>검색어나 필터를 바꿔보세요</Hint>
       <ResetButton onClick={onReset}>필터 초기화</ResetButton>
