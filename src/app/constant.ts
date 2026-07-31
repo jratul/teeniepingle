@@ -136,7 +136,7 @@ export const seasonData: Season[] = [
     seasonIdx: 5,
     short: "6기",
     sub: "요술봉",
-    emoji: "🪄",
+    emoji: "✨",
     badgeBg: "#d9f5f0",
     badgeFg: "#2f9c8f",
     filterKey: "sixth",
